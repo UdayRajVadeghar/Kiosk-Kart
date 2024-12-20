@@ -8,8 +8,8 @@ const app = express();
 
 //middlewares
 
-app.use(express.json()); //use body parser if api error in json parsing occurs
-app.use("/api/login", loginRoute); // route to manage the login route
+app.use(express.json()); //future note : use body parser if api error in json parsing occurs
+app.use("/api/auth", loginRoute); // route to manage the  route
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
