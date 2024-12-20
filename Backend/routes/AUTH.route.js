@@ -4,25 +4,67 @@ import authPool from "../DB/db.js"; // making sure it is .js
 //initializing the router to use routes in the express
 const authRoute = express.Router();
 
-//post request || "CREATE" in CRUD
-
+//POST request || "CREATE" in CRUD
 authRoute.post("/", async (req, res) => {
   //database schema :- id(auto generated) , name(req), email(req), password(req),additionalInfo(JSONB type)
 
   //we are extracting json feilds from the info sent by the user
-  const { name, email, password, additionalInfo } = req.body;
-
-  res.send(additionalInfo);
+  const { name, email, password, info } = req.body;
 
   try {
     //pool.query(queryText, values, callback) ->> parameters
     const newUser = await authPool.query(
-      "INSERT INTO users (name , email , password , addtionalInfo) VALUES ($,$2,$3,$4)",
-      [name, email, password, additionalInfo]
+      "INSERT INTO users (name , email , password , info) VALUES ($1,$2,$3,$4::jsonb) RETURNING *",
+      [name, email, password, info]
     );
-    res.status(200).send(newUser);
+    res.status(200).send(newUser.rows[0]); //the info of the user is present in the first entry of rows
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
+  }
+});
+
+//GET request , "READ" in CRUD
+authRoute.get("/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const userDetails = await authPool.query(
+      "SELECT * FROM users WHERE id = $1",
+      [id]
+    );
+    res.status(200).send(userDetails.rows[0]);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+//PUT request , "UPDATE" in CRUD
+authRoute.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const { name } = req.body;
+
+  try {
+    const updatedData = await authPool.query(
+      "UPDATE users SET name = $1 RETURNING *",
+      [name]
+    );
+    res.status(201).send(updatedData.rows[0]);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+//DELETE request , "DELETE" in CRUD
+authRoute.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deletedUser = await authPool.query(
+      "DELETE FROM users WHERE id = $1",
+      [id]
+    );
+    res.status(201).send(`Deleted the user with id = ${id}`);
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 });
 
