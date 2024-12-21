@@ -3,6 +3,7 @@ import express from "express";
 import authRoute from "./routes/AUTH.route.js"; //make sure that .js in module type. idk why...?
 
 //using environment variables
+
 dotenv.config();
 const app = express();
 
