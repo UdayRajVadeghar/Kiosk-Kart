@@ -1,5 +1,5 @@
 import express from "express";
-import authPool from "../DB/db.js"; // making sure it is .js
+import dbPool from "../DB/db.js"; // making sure it is .js
 
 //initializing the router to use routes in the express
 const authRoute = express.Router();
@@ -9,13 +9,13 @@ authRoute.post("/", async (req, res) => {
   //database schema :- id(auto generated) , name(req), email(req), password(req),additionalInfo(JSONB type)
 
   //we are extracting json feilds from the info sent by the user
-  const { name, email, password, info } = req.body;
+  const { name, email, password, role } = req.body;
 
   try {
     //pool.query(queryText, values, callback) ->> parameters
-    const newUser = await authPool.query(
-      "INSERT INTO users (name , email , password , info) VALUES ($1,$2,$3,$4::jsonb) RETURNING *",
-      [name, email, password, info]
+    const newUser = await dbPool.query(
+      "INSERT INTO users (name , email , password , role) VALUES ($1,$2,$3,$4) RETURNING *",
+      [name, email, password, role]
     );
     res.status(200).send(newUser.rows[0]); //the info of the user is present in the first entry of rows
   } catch (error) {
@@ -28,7 +28,7 @@ authRoute.get("/:id", async (req, res) => {
   const id = req.params.id;
 
   try {
-    const userDetails = await authPool.query(
+    const userDetails = await dbPool.query(
       "SELECT * FROM users WHERE id = $1",
       [id]
     );
@@ -44,7 +44,7 @@ authRoute.put("/:id", async (req, res) => {
   const { name } = req.body;
 
   try {
-    const updatedData = await authPool.query(
+    const updatedData = await dbPool.query(
       "UPDATE users SET name = $1 RETURNING *",
       [name]
     );
@@ -58,10 +58,9 @@ authRoute.put("/:id", async (req, res) => {
 authRoute.delete("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const deletedUser = await authPool.query(
-      "DELETE FROM users WHERE id = $1",
-      [id]
-    );
+    const deletedUser = await dbPool.query("DELETE FROM users WHERE id = $1", [
+      id,
+    ]);
     res.status(201).send(`Deleted the user with id = ${id}`);
   } catch (error) {
     res.status(500).send(error.message);

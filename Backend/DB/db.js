@@ -3,7 +3,7 @@ import pkg from "pg";
 const { Pool } = pkg;
 
 //the setup for the database , imp info. Dont get this wrong
-const authPool = new Pool({
+const dbPool = new Pool({
   user: "uday",
   host: "localhost",
   database: "ecommerceDB",
@@ -11,4 +11,4 @@ const authPool = new Pool({
   port: 5432,
 });
 
-export default authPool;
+export default dbPool;
