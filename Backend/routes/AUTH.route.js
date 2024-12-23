@@ -14,7 +14,7 @@ authRoute.post("/", async (req, res) => {
   try {
     //pool.query(queryText, values, callback) ->> parameters
     const newUser = await dbPool.query(
-      "INSERT INTO users (name , email , password , role) VALUES ($1,$2,$3,$4) RETURNING *",
+      "INSERT INTO users (name , email , password_hash , role) VALUES ($1,$2,$3,$4) RETURNING *",
       [name, email, password, role]
     );
     res.status(200).send(newUser.rows[0]); //the info of the user is present in the first entry of rows

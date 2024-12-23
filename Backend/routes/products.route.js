@@ -45,8 +45,19 @@ productsRoute.get("/:id", async (req, res) => {
   }
 });
 
-//Get the seller details by product id
+//get products by seller id
+productsRoute.get("/:productId/:sellerId", async (req, res) => {
+  const sellerId = req.params.sellerId;
 
-productsRoute.get("/", (req, res) => {});
+  try {
+    const productData = await dbPool.query(
+      "SELECT * FROM products INNER JOIN users ON products.seller_id = users.id WHERE products.seller_id = $1",
+      [sellerId]
+    );
+    res.status(200).send(productData.rows);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
 
 export default productsRoute;
