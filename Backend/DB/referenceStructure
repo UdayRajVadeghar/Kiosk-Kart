@@ -17,7 +17,8 @@ CREATE TABLE products (
     stock INT NOT NULL CHECK (stock >= 0),
     image_url TEXT,
     seller_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    seller_name VARCHAR(100) NOT NULL;
 );
 
 

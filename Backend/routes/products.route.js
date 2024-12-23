@@ -3,13 +3,15 @@ import dbPool from "../DB/db.js";
 
 const productsRoute = express.Router();
 
+//Add a Product to the table
 productsRoute.post("/", async (req, res) => {
-  const { name, description, price, stock, image_url, seller_id } = req.body;
+  const { name, description, price, stock, image_url, seller_id, seller_name } =
+    req.body;
 
   try {
     const productData = await dbPool.query(
-      "INSERT INTO products (name , description , price , stock , image_url , seller_id) VALUES ($1 , $2 , $3 , $4 , $5 , $6) RETURNING *",
-      [name, description, price, stock, image_url, seller_id]
+      "INSERT INTO products (name , description , price , stock , image_url , seller_id , seller_name) VALUES ($1 , $2 , $3 , $4 , $5 , $6 , $7) RETURNING *",
+      [name, description, price, stock, image_url, seller_id, seller_name]
     );
 
     res.status(201).send(productData.rows[0]);
@@ -18,6 +20,7 @@ productsRoute.post("/", async (req, res) => {
   }
 });
 
+//get all products
 productsRoute.get("/", async (req, res) => {
   try {
     const productData = await dbPool.query("SELECT * FROM products");
@@ -27,6 +30,7 @@ productsRoute.get("/", async (req, res) => {
   }
 });
 
+//get the product by id
 productsRoute.get("/:id", async (req, res) => {
   const id = req.params.id;
 
@@ -40,5 +44,9 @@ productsRoute.get("/:id", async (req, res) => {
     res.status(404).send(error.message);
   }
 });
+
+//Get the seller details by product id
+
+productsRoute.get("/", (req, res) => {});
 
 export default productsRoute;
