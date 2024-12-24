@@ -1,10 +1,4 @@
-import NavbarComponent from "./components/NavbarComponent";
-
 const App = () => {
-  return (
-    <div className="">
-      <NavbarComponent />
-    </div>
-  );
+  return <div className="">Hello</div>;
 };
 export default App;
