@@ -14,7 +14,7 @@ const app = express();
 //middlewares
 
 app.use(express.json()); //future note : use body parser if api error in json parsing occurs
-app.use("/api/auth", authRoute); // route to manage the  route
+app.use("/api/auth", authRoute); // route to manage the auth
 app.use("/api/products", productsRoute);
 app.use("/api/sellerDetails", sellerDeatilsRoute);
 app.use("/api/carts", cartRoute);
