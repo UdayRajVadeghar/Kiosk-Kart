@@ -1,14 +1,29 @@
 import { Input } from "@/components/ui/input";
+import handleLoginFormSubmit from "@/utils/handleLoginFormSubmit";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const Signup = () => {
+  function emailInputAction(event) {
+    setEmail(event.target.value);
+  }
+
+  function passwordInputAction(event) {
+    setPassword(event.target.value);
+  }
+
   return (
     <div className="bg-landing bg-cover bg-center h-screen flex justify-center items-center">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-semibold text-center mb-6">
           Login to your account
         </h2>
-        <form className="space-y-5">
+        <form
+          className="space-y-5"
+          onSubmit={(event) => handleLoginFormSubmit(event, email, password)}
+        >
           <div>
             <label
               htmlFor="email"
@@ -21,6 +36,8 @@ const Signup = () => {
               type="email"
               className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
+              onChange={(event) => emailInputAction(event)}
+              value={email}
             />
           </div>
 
@@ -36,6 +53,8 @@ const Signup = () => {
               type="password"
               className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
+              onChange={(event) => passwordInputAction(event)}
+              value={password}
             />
           </div>
 
@@ -60,4 +79,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
