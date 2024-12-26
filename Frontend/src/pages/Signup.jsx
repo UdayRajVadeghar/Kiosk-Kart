@@ -1,18 +1,21 @@
 import DropDownComponent from "@/components/DropDownComponent";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const signUpSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(3, "Name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   //add enum if required
 });
 
 const Signup = () => {
+  const [value, setValue] = useState("customer");
+
   const {
     register,
     handleSubmit,
@@ -21,8 +24,9 @@ const Signup = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = (data) => {
+  const handleSignUpFormSubmit = (data) => {
     //handle auth/registration
+    console.log(data);
   };
 
   return (
@@ -32,7 +36,10 @@ const Signup = () => {
           Create an Account
         </h2>
 
-        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="space-y-5"
+          onSubmit={handleSubmit(handleSignUpFormSubmit)}
+        >
           <div>
             <label
               htmlFor="name"
@@ -91,7 +98,7 @@ const Signup = () => {
               </p>
             )}
           </div>
-          <DropDownComponent />{" "}
+          <DropDownComponent value={value} setValue={setValue} />{" "}
           {/*Should Add the logic to get the value props*/}
           <div>
             <button

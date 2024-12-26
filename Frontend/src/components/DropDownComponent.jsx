@@ -7,13 +7,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import React from "react";
 import { Button } from "./ui/button";
 
-const DropDownComponent = () => {
-  const [value, setValue] = React.useState("customer");
-  console.log(value);
-
+const DropDownComponent = ({ value, setValue }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
