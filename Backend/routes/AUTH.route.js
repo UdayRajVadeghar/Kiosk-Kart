@@ -1,5 +1,6 @@
 import express from "express";
 import dbPool from "../DB/db.js"; // making sure it is .js
+import hashPassword from "../utils/hashPassword.js";
 
 //initializing the router to use routes in the express
 const authRoute = express.Router();
@@ -12,10 +13,12 @@ authRoute.post("/", async (req, res) => {
   const { name, email, password, role } = req.body.data;
 
   try {
+    const hashedPassword = await hashPassword(password);
+
     //pool.query(queryText, values, callback) ->> parameters
     const newUser = await dbPool.query(
       "INSERT INTO users (name , email , password_hash , role) VALUES ($1,$2,$3,$4) RETURNING *",
-      [name, email, password, role]
+      [name, email, hashedPassword, role]
     );
     res.status(201).send(newUser.rows[0]); //the info of the user is present in the first entry of rows
   } catch (error) {
