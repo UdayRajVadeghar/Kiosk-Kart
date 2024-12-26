@@ -1,7 +1,7 @@
 import DropDownComponent from "@/components/DropDownComponent";
 import { Input } from "@/components/ui/input";
+import { handleSignUpFormSubmit } from "@/utils/handleSignUpFormSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
@@ -10,24 +10,20 @@ const signUpSchema = z.object({
   name: z.string().min(3, "Name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  //add enum if required
+  role: z.enum(["customer", "seller"]),
 });
 
 const Signup = () => {
-  const [value, setValue] = useState("customer");
-
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signUpSchema),
+    defaultValues: { role: "customer" }, // Default role
   });
-
-  const handleSignUpFormSubmit = (data) => {
-    //handle auth/registration
-    console.log(data);
-  };
 
   return (
     <div className="bg-landing bg-cover bg-center h-screen flex justify-center items-center">
@@ -53,6 +49,7 @@ const Signup = () => {
               {...register("name")}
               className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your name"
+              aria-label="Name"
             />
             {errors.name && (
               <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
@@ -71,6 +68,7 @@ const Signup = () => {
               {...register("email")}
               className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
+              aria-label="Email"
             />
             {errors.email && (
               <p className="text-sm text-red-500 mt-1">
@@ -91,6 +89,7 @@ const Signup = () => {
               {...register("password")}
               className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
+              aria-label="Password"
             />
             {errors.password && (
               <p className="text-sm text-red-500 mt-1">
@@ -98,8 +97,13 @@ const Signup = () => {
               </p>
             )}
           </div>
-          <DropDownComponent value={value} setValue={setValue} />{" "}
-          {/*Should Add the logic to get the value props*/}
+          <DropDownComponent
+            value={watch("role")}
+            setValue={(newRole) => setValue("role", newRole)}
+          />
+          {errors.role && (
+            <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
+          )}
           <div>
             <button
               type="submit"
