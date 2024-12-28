@@ -10,6 +10,7 @@ authRoute.post("/", async (req, res) => {
   //database schema :- id(auto generated) , name(req), email(req), password(req),additionalInfo(JSONB type)
 
   //we are extracting json feilds from the info sent by the user
+
   const { name, email, password, role } = req.body.data;
 
   try {
