@@ -1,5 +1,5 @@
 import express from "express";
-import dbPool from "../DB/db.js";
+import dbPool from "../db/db";
 
 const cartProductRoute = express.Router();
 

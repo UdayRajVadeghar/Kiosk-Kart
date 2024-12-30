@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import express from "express";
-import dbPool from "../DB/db.js";
+import dbPool from "../db/db";
+import { asyncHandler } from "../utils/async-handler";
 
 const loginRoute = express.Router();
 

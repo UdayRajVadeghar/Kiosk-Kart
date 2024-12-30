@@ -1,12 +1,12 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import authRoute from "./routes/AUTH.route.js"; //make sure that .js in module type. idk why...?
-import cartRoute from "./routes/cart.route.js";
-import cartProductRoute from "./routes/cart_product.route.js";
-import loginRoute from "./routes/login.route.js";
-import productsRoute from "./routes/products.route.js";
-import sellerDeatilsRoute from "./routes/sellerDetails.route.js";
+import cartRoute from "./routes/cart.route";
+import authRoute from "./routes/auth.route"
+import cartProductRoute from "./routes/cart-product.route";
+import loginRoute from "./routes/login.route";
+import productsRoute from "./routes/products.route";
+import sellerDeatilsRoute from "./routes/seller-details.route";
 
 //using environment variables
 

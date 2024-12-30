@@ -1,6 +1,6 @@
 import express from "express";
-import dbPool from "../DB/db.js"; // making sure it is .js
-import hashPassword from "../utils/hashPassword.js";
+import dbPool from "../db/db.js"; // making sure it is .js
+import { hashPassword } from "../utils/hash-password.js";
 
 //initializing the router to use routes in the express
 const authRoute = express.Router();
