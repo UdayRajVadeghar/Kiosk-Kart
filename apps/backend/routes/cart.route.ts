@@ -9,7 +9,7 @@ cartRoute.post("/", async (req, res) => {
   try {
     const cartDetails = await dbPool.query(
       "INSERT INTO carts (user_id) VALUES ($1)",
-      [userId]
+      [userId],
     );
 
     res.status(200).send(cartDetails.rows);

@@ -4,7 +4,6 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
-
 const App = () => {
   return (
     <BrowserRouter>

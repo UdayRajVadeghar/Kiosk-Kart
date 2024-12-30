@@ -19,7 +19,7 @@ authRoute.post("/", async (req, res) => {
     //pool.query(queryText, values, callback) ->> parameters
     const newUser = await dbPool.query(
       "INSERT INTO users (name , email , password_hash , role) VALUES ($1,$2,$3,$4) RETURNING *",
-      [name, email, hashedPassword, role]
+      [name, email, hashedPassword, role],
     );
     res.status(201).send(newUser.rows[0]); //the info of the user is present in the first entry of rows
   } catch (error) {
@@ -34,7 +34,7 @@ authRoute.get("/:id", async (req, res) => {
   try {
     const userDetails = await dbPool.query(
       "SELECT * FROM users WHERE id = $1",
-      [id]
+      [id],
     );
     res.status(200).send(userDetails.rows[0]);
   } catch (error) {
@@ -50,7 +50,7 @@ authRoute.put("/:id", async (req, res) => {
   try {
     const updatedData = await dbPool.query(
       "UPDATE users SET name = $1 RETURNING *",
-      [name]
+      [name],
     );
     res.status(201).send(updatedData.rows[0]);
   } catch (error) {

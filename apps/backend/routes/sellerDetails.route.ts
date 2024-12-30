@@ -10,7 +10,7 @@ sellerDeatilsRoute.get("/:id", async (req, res) => {
   try {
     const sellerDeatils = await dbPool.query(
       "SELECT * FROM users WHERE id = $1 AND role = 'seller' ",
-      [id]
+      [id],
     );
 
     res.status(200).send(sellerDeatils.rows[0]);
@@ -23,7 +23,7 @@ sellerDeatilsRoute.get("/:id", async (req, res) => {
 sellerDeatilsRoute.get("/", async (req, res) => {
   try {
     const allSellerDetails = await dbPool.query(
-      "SELECT * FROM users where role = 'seller'"
+      "SELECT * FROM users where role = 'seller'",
     );
     res.status(200).send(allSellerDetails.rows);
   } catch (error) {

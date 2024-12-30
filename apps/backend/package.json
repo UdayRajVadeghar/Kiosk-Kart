@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "tsx server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "format": "prettier --write ."
   },
   "type": "module",
   "author": "uday",

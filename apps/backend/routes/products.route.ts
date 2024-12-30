@@ -11,7 +11,7 @@ productsRoute.post("/", async (req, res) => {
   try {
     const productData = await dbPool.query(
       "INSERT INTO products (name , description , price , stock , image_url , seller_id , seller_name) VALUES ($1 , $2 , $3 , $4 , $5 , $6 , $7) RETURNING *",
-      [name, description, price, stock, image_url, seller_id, seller_name]
+      [name, description, price, stock, image_url, seller_id, seller_name],
     );
 
     res.status(201).send(productData.rows[0]);
@@ -37,7 +37,7 @@ productsRoute.get("/:id", async (req, res) => {
   try {
     const productData = await dbPool.query(
       "SELECT * FROM products WHERE id = $1",
-      [id]
+      [id],
     );
     res.status(200).send(productData.rows[0]);
   } catch (error) {
@@ -52,7 +52,7 @@ productsRoute.get("/:productId/:sellerId", async (req, res) => {
   try {
     const productData = await dbPool.query(
       "SELECT * FROM products INNER JOIN users ON products.seller_id = users.id WHERE products.seller_id = $1",
-      [sellerId]
+      [sellerId],
     );
     res.status(200).send(productData.rows);
   } catch (error) {

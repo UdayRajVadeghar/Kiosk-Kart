@@ -12,7 +12,7 @@ cartProductRoute.put("/", async (req, res) => {
   try {
     const cartDetails = await dbPool.query(
       "UPDATE cart_products SET quantity = $1 WHERE cart_id = $2 AND product_id = $3",
-      [quantity, cartId, productId]
+      [quantity, cartId, productId],
     );
 
     res.status(201).send("Success");

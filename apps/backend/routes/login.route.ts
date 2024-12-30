@@ -11,7 +11,7 @@ loginRoute.post("/", async (req, res) => {
   try {
     const userdetails = await dbPool.query(
       "SELECT * FROM users WHERE email = $1",
-      [email]
+      [email],
     );
     const userPassword = userdetails.rows[0].password_hash;
 

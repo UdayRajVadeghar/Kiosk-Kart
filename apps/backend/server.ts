@@ -10,10 +10,8 @@ import sellerDeatilsRoute from "./routes/sellerDetails.route.js";
 
 //using environment variables
 
-
 dotenv.config();
 const app = express();
-
 
 //middlewares
 app.use(cors()); // cors is enabled for everythign rn , should change it in the future
