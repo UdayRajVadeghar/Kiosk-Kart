@@ -1,6 +1,6 @@
-import DropDownComponent from "@/components/DropDownComponent";
-import { Input } from "@/components/ui/input";
-import { handleSignUpFormSubmit } from "@/utils/handleSignUpFormSubmit";
+// import DropDownComponent from "@/components/DropDownComponent";
+// import { Input } from "@/components/ui/input";
+// import { handleSignUpFormSubmit } from "@/utils/handleSignUpFormSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -32,7 +32,7 @@ const Signup = () => {
           Create an Account
         </h2>
 
-        <form
+        {/* <form
           className="space-y-5"
           onSubmit={handleSubmit(handleSignUpFormSubmit)}
         >
@@ -112,7 +112,7 @@ const Signup = () => {
               Sign Up
             </button>
           </div>
-        </form>
+        </form> */}
 
         <p className="text-center text-sm text-gray-500 mt-4">
           Already have an account?{" "}

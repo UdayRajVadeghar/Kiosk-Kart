@@ -1,16 +1,15 @@
-import { Input } from "@/components/ui/input";
-import handleLoginFormSubmit from "@/utils/handleLoginFormSubmit";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function emailInputAction(event) {
+  function emailInputAction(event: React.ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
   }
 
-  function passwordInputAction(event) {
+  function passwordInputAction(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
   }
 
@@ -20,7 +19,7 @@ const Login = () => {
         <h2 className="text-2xl font-semibold text-center mb-6">
           Login to your account
         </h2>
-        <form
+        {/* <form
           className="space-y-5"
           onSubmit={(event) => handleLoginFormSubmit(event, email, password)}
         >
@@ -66,7 +65,7 @@ const Login = () => {
               Login
             </button>
           </div>
-        </form>
+        </form> */}
 
         <p className="text-center text-sm text-gray-500 mt-4">
           Don't have an account?{" "}
