@@ -15,7 +15,7 @@ sellerDeatilsRoute.get("/:id", async (req, res) => {
 
     res.status(200).send(sellerDeatils.rows[0]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -27,7 +27,7 @@ sellerDeatilsRoute.get("/", async (req, res) => {
     );
     res.status(200).send(allSellerDetails.rows);
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send(error);
   }
 });
 

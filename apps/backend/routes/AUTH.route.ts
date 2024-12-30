@@ -23,7 +23,7 @@ authRoute.post("/", async (req, res) => {
     );
     res.status(201).send(newUser.rows[0]); //the info of the user is present in the first entry of rows
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -38,7 +38,7 @@ authRoute.get("/:id", async (req, res) => {
     );
     res.status(200).send(userDetails.rows[0]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -54,7 +54,7 @@ authRoute.put("/:id", async (req, res) => {
     );
     res.status(201).send(updatedData.rows[0]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -67,7 +67,7 @@ authRoute.delete("/:id", async (req, res) => {
     ]);
     res.status(201).send(`Deleted the user with id = ${id}`);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 

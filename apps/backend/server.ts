@@ -10,8 +10,10 @@ import sellerDeatilsRoute from "./routes/sellerDetails.route.js";
 
 //using environment variables
 
+
 dotenv.config();
 const app = express();
+
 
 //middlewares
 app.use(cors()); // cors is enabled for everythign rn , should change it in the future
@@ -23,8 +25,9 @@ app.use("/api/carts", cartRoute);
 app.use("/api/cartProduct", cartProductRoute);
 app.use("/api/login", loginRoute);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.PORT}`);
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
 
 export default app;

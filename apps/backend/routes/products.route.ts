@@ -16,7 +16,7 @@ productsRoute.post("/", async (req, res) => {
 
     res.status(201).send(productData.rows[0]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -26,7 +26,7 @@ productsRoute.get("/", async (req, res) => {
     const productData = await dbPool.query("SELECT * FROM products");
     res.status(200).send(productData.rows[0]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -41,7 +41,7 @@ productsRoute.get("/:id", async (req, res) => {
     );
     res.status(200).send(productData.rows[0]);
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send(error);
   }
 });
 
@@ -56,7 +56,7 @@ productsRoute.get("/:productId/:sellerId", async (req, res) => {
     );
     res.status(200).send(productData.rows);
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send(error);
   }
 });
 

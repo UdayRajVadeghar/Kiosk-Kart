@@ -26,7 +26,7 @@ loginRoute.post("/", async (req, res) => {
 
     res.status(201).send("This user is authorized");
   } catch (error) {
-    res.status(500).send("Error in login route");
+    res.status(500).json(error);
   }
 });
 

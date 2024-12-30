@@ -17,7 +17,7 @@ cartProductRoute.put("/", async (req, res) => {
 
     res.status(201).send("Success");
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
